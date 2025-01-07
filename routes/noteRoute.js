@@ -5,11 +5,12 @@ const router=express.Router();
 const authenticateToken=require('../MiddleWare/authMiddleWare.js')
 
 router.post('/notes', authenticateToken, async (req,res)=>{
-    const {title,content} =req.body;
+    const {title,content,color} =req.body;
 
     const newNote= new Note({
         title,
         content,
+        color,
         user:req.user.id,
     });
 
@@ -36,7 +37,7 @@ router.get('/notes',authenticateToken,async(req,res)=>{
 router.get('/notes/:id', authenticateToken, async(req,res)=>{
     try{
         const {id}= req.params;
-        if(!monggose.Types.ObjectId.isValid(id)){
+        if(!mongoose.Types.ObjectId.isValid(id)){
             return res.status(400).json({message:'Invalid ID format'});
         }
         const note=await Note.findOne({_id:id, user:req.user.id});
@@ -53,17 +54,17 @@ router.get('/notes/:id', authenticateToken, async(req,res)=>{
 // Express route example for PUT /api/notes/:id
 router.put('/notes/:id',authenticateToken, async (req, res) => {
     const { id } = req.params;
-    const { title, content } = req.body;
+    const { title, content, color } = req.body;
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(400).json({ message: 'Invalid ID format' });
     }
     try {
-        if (!title || !content) {
+        if (!title || !content || !color) {
             return res.status(400).json({ message: 'Title and content are required' });
         }
         const updatedNote = await Note.findByIdAndUpdate(
             {_id:id, user:req.user.id},
-            { title, content },
+            { title, content, color },
             { new: true }  // Return the updated note
         );
         if (!updatedNote) {
