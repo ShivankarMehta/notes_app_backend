@@ -2,7 +2,8 @@ const express= require('express');
 const bcrypt=require('bcrypt');
 const jwt=require('jsonwebtoken');
 const User=require('../Models/User.js');
-
+const dotenv=require('dotenv');
+dotenv.config();
 
 const router=express.Router();
 
@@ -70,7 +71,7 @@ router.post('/login', async(req,res)=>{
 
         res.cookie('token', token, {
             httpOnly:true,
-            secure:true,
+            secure: process.env.NODE_ENV === 'production',
             sameSite: 'lax',
             maxAge:3600000
         });
