@@ -11,7 +11,7 @@ dotenv.config();
 const app = express();
 app.use(cookieParser());
 app.use(cors({
-    origin: 'http://localhost:3000', // Replace with your frontend's URL
+    origin: 'https://dazzling-fairy-f7b8d6.netlify.app/', // Replace with your frontend's URL
     credentials: true,
 }));
 app.use(express.json());
