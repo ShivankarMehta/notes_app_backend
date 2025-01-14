@@ -13,7 +13,8 @@ const authenticateToken=(req,res,next) =>{
         next();
     }
     catch(error){
-        res.status(403).json({message:'Invalid token.'});
+        console.error("Token verification failed:", error);
+        res.status(403).json({ message: 'Invalid token.' });
     }
 }
 
