@@ -11,7 +11,7 @@ dotenv.config();
 const app = express();
 app.use(cookieParser());
 app.use(cors({
-    origin: process.env.FRONTEND_ROUTE || "http://localhost:3002/" ,  // Replace with your frontend's URL
+    origin: process.env.FRONTEND_ROUTE || "https://notesappshiv.netlify.app" ,  // Replace with your frontend's URL
     credentials: true,
 }));
 app.use(express.json());
